@@ -1,41 +1,11 @@
-/* global customElements, HTMLElement, fetch, DOMParser */
+/* global customElements, HTMLElement */
 
-const button = (label, { classes = [], type = 'button' } = {}) => html(`<button class="${classes.join(' ')}" type="${type}">${label}</button>`)
+import { button, linkList } from './elements.js'
+import { load } from './utils/loading.js'
 
-const link = element => `<a href="${element.path}">${element.version}</a>`
-
-const linkListItem = currentVersion => element => `<li class="${currentVersion === element.version ? 'selected' : ''}">${link(element)}</li>`
-
-const linkList = (elements = [], currentVersion) => {
-  const linkItem = linkListItem(currentVersion)
-  const content = `
-  <ul class="link-list">
-    ${elements.map(linkItem).join('\n')}
-  </ul>}
-`
-  console.log(content)
-  return html(content)
-}
-
-const fetchOptions = {
-  headers: { Accept: 'application/json' },
-  credentials: 'same-origin',
-  method: 'GET',
-  mode: 'same-origin',
-  redirect: 'follow'
-}
-
-const loadData = async dataFile => {
-  const result = await fetch(dataFile, fetchOptions)
-  if (!result.ok) {
-    throw new Error(`Data could not be loaded: ${result.status}`)
-  }
-  return result.json()
-}
-
-customElements.define('doc-version-select', class DocVersionSelect extends HTMLElement {
+class DocVersionSelect extends HTMLElement {
   async connectedCallback () {
-    const versions = await loadData(this.versionInfoFile)
+    const versions = await load(this.versionInfoFile)
 
     const dropdownButton = button(`${this.documentName}: ${this.currentVersion}`, { classes: ['button', 'dropdown-toggle'] })
     this.appendChild(dropdownButton)
@@ -64,10 +34,6 @@ customElements.define('doc-version-select', class DocVersionSelect extends HTMLE
     const documentName = this.hasAttribute('document-name') ? this.getAttribute('document-name') : null
     return documentName || 'Docs'
   }
-})
-
-function html (htmlSnippet) {
-  const parser = new DOMParser()
-  const doc = parser.parseFromString(htmlSnippet, 'text/html')
-  return doc.body.firstChild
 }
+
+customElements.define('doc-version-select', DocVersionSelect)
