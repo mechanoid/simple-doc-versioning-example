@@ -1,0 +1,116 @@
+:root {
+  --element-bg-primary: rgb(239, 234, 234);
+  --element-bg-primary-hov: rgb(227, 222, 222);
+  --link-color: #000;
+}
+
+html * {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+main {
+  padding: 0 1rem;
+}
+
+@media screen and (min-width: 800px) {
+  main {
+    padding: 0;
+    width: 80vw;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+nav {
+  display: block;
+  text-align: right;
+  border-bottom: 1px solid #000;
+  padding-bottom: .5rem;
+  margin-bottom: .5rem;
+}
+
+.button {
+  background-color: var(--element-bg-primary);
+  border: 0;
+  padding: .5rem 1rem;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: var(--element-bg-primary-hov);
+}
+
+doc-version-select {
+  position: relative;
+}
+
+doc-version-select ul {
+  display: none;
+  position: absolute;
+  top: 3rem;
+  right: 0;
+
+  list-style-type: none;
+
+  margin: 0;
+  padding: 0;
+  text-align: left;
+
+  border: 1px solid rgb(175, 170, 170);
+  background-color: #fff;
+  z-index: 1;
+}
+
+doc-version-select li {
+  display: block;
+  padding: 0;
+  border-bottom: 1px solid rgb(226, 224, 224);
+}
+
+doc-version-select li.selected {
+  font-weight: bold;
+}
+
+doc-version-select li.selected a:after {
+  content: "✔";
+  position: absolute;
+  right: .5rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+doc-version-select a {
+  position: relative;
+  display: block;
+  padding: .5rem 1.5rem .5rem 1rem;
+  width: 100%;
+  min-width: 10rem;
+
+  text-decoration: none;
+  color: var(--link-color);
+  background-color: var(--element-bg-primary);
+}
+
+doc-version-select a:hover {
+  background-color: var(--element-bg-primary-hov);
+}
+
+
+/* ul li:hover > ul,
+ul li:focus-within > ul,
+ul li ul:hover {
+  visibility: visible;
+  opacity: 1;
+  display: block;
+} */
+
+
+.dropdown-toggle:focus ~ .link-list,
+.link-list:hover {
+  display: block;
+}
