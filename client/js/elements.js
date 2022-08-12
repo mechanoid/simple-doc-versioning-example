@@ -12,6 +12,6 @@ export const linkList = (elements = [], currentVersion) => {
   return html(`
     <ul class="link-list">
       ${elements.map(linkItem).join('\n')}
-    </ul>}
+    </ul>
   `)
 }
